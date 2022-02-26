@@ -7,6 +7,7 @@ npm i -d typescript tsc-watch @types/express @types/node
 ```
 
 # To run
+
 ```
 npm run dev
 ```
