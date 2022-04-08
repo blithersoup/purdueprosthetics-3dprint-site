@@ -14,7 +14,7 @@ const Home: NextPage = () => {
   const [results, setResults] = useState(resultList);
 
   useEffect((): ReturnType<EffectCallback> => {
-    get_all_managers().then((result) => { setResults(result) });
+    get_all_managers().then((result) => { console.log(result) });
   });
 
   
