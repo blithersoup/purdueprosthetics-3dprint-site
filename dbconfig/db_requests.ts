@@ -9,7 +9,7 @@ import { QueryResult } from 'pg';
 // update_request
 // delete_request
 
-export const get_requests = async (id: string): Promise<Request | null> => {
+export const get_request = async (id: string): Promise<Request | null> => {
   const res = await query<Request>('SELECT * FROM Requests WHERE id=$1', [
     id,
   ]);
