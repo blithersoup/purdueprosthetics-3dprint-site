@@ -1,7 +1,6 @@
-import { get_all_managers, create_manager } from '../dbconfig/db_managers';
-import { Member } from '../dbconfig/models'
 import type { NextPage } from "next";
-import { EffectCallback, useEffect, useState } from "react";
+import React from "react";
+import Header from "../components/header";
 
 const Home: NextPage = () => {
   //in general, try to view external media with nextjs components
@@ -9,19 +8,14 @@ const Home: NextPage = () => {
   //As the pages folder stores all files in browser accessible routes,
   //put all reusable, non-page components in the components folder.
   //Header is a good starter for that if you have an idea for another, just copy that
-  let resultList: Member[] = [];
 
-  const [results, setResults] = useState(resultList);
-
-  useEffect((): ReturnType<EffectCallback> => {
-    get_all_managers().then((result) => { console.log(result) });
-  });
-
-  
+  //Login page, this needs to be two forms: one for managers and members
+  //Probably would be smart to create a form component and have a variable to switch logins
+  //Likely will implement oauth, not gonna worry about security until later
   return (
     <div>
+      <Header />
       <div>hello world</div>
-      
     </div>
   );
 };

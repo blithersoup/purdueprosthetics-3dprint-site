@@ -8,6 +8,8 @@ const Home: NextPage = () => {
   //As the pages folder stores all files in browser accessible routes,
   //put all reusable, non-page components in the components folder.
   //Header is a good starter for that if you have an idea for another, just copy that
+
+  //This is for the purdue prosthetics site, do with it whatever you want
   return (
     <div>
       <Header />
