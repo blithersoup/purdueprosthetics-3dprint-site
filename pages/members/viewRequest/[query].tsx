@@ -40,7 +40,6 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
   };
 
   const [data, setData] = useState(initialValues);
-  const url = '/api/requests/get/byId';
 
 
   const { reset, handleSubmit, register, formState: { errors, isSubmitting }, } = useForm({
@@ -80,7 +79,7 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
 
   useEffect(() => {
     async function setArray() {
-      await fetch(url, {
+      await fetch("/api/requests/get/byId", {
         method: "POST",
       headers: {
         "Content-Type": "application/json"
