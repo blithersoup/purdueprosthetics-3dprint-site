@@ -8,7 +8,7 @@ const dbName = process.env.DB_NAME;
 */
 
 const dbUser = '';
-const dbPass = '';
+const dbPass = '!';
 const dbHost = '';
 const dbPort = '';
 const dbName = '';
@@ -36,3 +36,4 @@ export const query = <T>(
 ): Promise<QueryResult<T>> => {
   return pool.query<T>(text, params);
 };
+ 

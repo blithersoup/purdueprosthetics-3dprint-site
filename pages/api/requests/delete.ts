@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { delete_request } from '../../../../dbconfig/db_requests';
+import { delete_request } from '../../../dbconfig/db_requests';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.body as { id: string }; 

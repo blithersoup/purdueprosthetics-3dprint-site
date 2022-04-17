@@ -18,12 +18,12 @@ export const get_request = async (id: string): Promise<Request | null> => {
 
 export const get_requests_by_member = async (
   id: string
-): Promise<Request | null> => {
+): Promise<Request[] | null> => {
   const res = await query<Request>(
     'SELECT * FROM Requests WHERE author_id=$1',
     [id]
   );
-  return res.rowCount === 1 ? res.rows[0] : null;
+  return res.rows;
 };
 
 export const get_all_requests = async (): Promise<Request[]> => {

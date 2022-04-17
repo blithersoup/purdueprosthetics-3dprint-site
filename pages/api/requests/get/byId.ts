@@ -1,8 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { get_request } from '../../../../dbconfig/db_requests';
+import { useRouter } from "next/router";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.body as { id: string }; 
+  
+  const { id } = req.body as { id: string };
+  
   await get_request(id).then((response) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');

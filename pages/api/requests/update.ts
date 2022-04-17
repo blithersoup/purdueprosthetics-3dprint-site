@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { update_request } from '../../../../dbconfig/db_requests';
-import type { Request } from '../../../../dbconfig/models'
+import { update_request } from '../../../dbconfig/db_requests';
+import type { Request } from '../../../dbconfig/models'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const newReq: Request = req.body as { 
-    id: 1;
+    id: number;
     name: string;
     author_id: number;
     url: string;

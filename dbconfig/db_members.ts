@@ -26,7 +26,7 @@ export const create_member = async (
   let res: QueryResult<Member>;
   try {
     res = await query<Member>(
-      'INSERT INTO Members (id, name, email, password, org) VALUES (default, $1, $2, $3, $4) RETURNING *;',
+      'INSERT INTO Members (name, email, password, org) VALUES ($1, $2, $3, $4) RETURNING *;',
       [params.name, params.email, params.password, params.org]
     );
   } catch (err: any) {
