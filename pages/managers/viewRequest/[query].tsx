@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../../../components/header";
 import { withRouter, useRouter } from "next/router";
 import { useState, useEffect, useMemo } from "react";
-import { FormErrorMessage, FormControl, FormLabel, Input, Button, Select } from "@chakra-ui/react";
+import { FormErrorMessage, FormControl, FormLabel, Input, Button, Select, Stack, Spacer } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { Request } from "../../../dbconfig/models"
 
@@ -64,8 +64,13 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
     }
     const d = await response.json();
     console.log('POST: ', d);
-    router.push('/members/homepage');
+    router.push('/managers/dashboard');
   };
+
+  const viewUser = () => {
+    const url = '/managers/viewUser/' + data.author_id;
+    router.push(url);
+  }
 
   
   const onSubmit = async (values: any) => {
@@ -83,7 +88,7 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
         notes: values.notes,
         material_type: values.material_type,
         second_material: values.second_material,
-        stage: data.stage
+        stage: values.stage
       }),
     });
 
@@ -92,13 +97,13 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
     }
     const d = await response.json();
     console.log('POST: ', d);
-    router.push('/members/homepage');
+    router.push('/managers/dashboard');
   };
 
   return (
-    <>
+    <Stack direction='column'>
     <Header />
-    <Button onClick={() => router.push('/members/homepage')}>
+    <Button mt={4} colorScheme='gray' onClick={() => router.push('/managers/dashboard')}>
       Back to dashboard
     </ Button>
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -174,15 +179,30 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
           {errors.name && errors.name.message}
         </FormErrorMessage>
       </FormControl>
-      <FormControl></FormControl>
+      <FormControl isInvalid={!!errors.name}>
+        <FormLabel htmlFor='stage'>Stage</FormLabel>
+        <Input
+          id='stage'
+          placeholder='stage'
+          {...register('stage')}
+        />
+        <FormErrorMessage>
+          {errors.name && errors.name.message}
+        </FormErrorMessage>
+      </FormControl>
       <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
         Update
       </Button>
     </form>
+    <Stack direction='row'>
     <Button mt={4} colorScheme='red' onClick={deleteRequest}>
         Delete
     </Button>
-    </>
+    <Button mt={4} colorScheme='blue' onClick={viewUser}>
+        View user
+    </Button>
+    </Stack>
+    </Stack>
   );
 });
 

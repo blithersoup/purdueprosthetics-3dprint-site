@@ -7,12 +7,15 @@ interface RVprops {
     request: Request
 }
 
-const RequestView: FC<RVprops> = ( { request } ): JSX.Element => {
-    const linkString = '/members/viewRequest/' + request.id.toString();
+const AdminRequestView: FC<RVprops> = ( { request } ): JSX.Element => {
+    const linkString = '/managers/viewRequest/' + request.id.toString();
     const router = useRouter();
+    
 
     return(
         <Box as='button' alignItems='left' borderRadius='md' color='wide' maxW='large' maxH='medium' borderWidth='1px' onClick={() => { router.push(linkString)}}>
+            <Stack direction='row'>
+                <Box>
                 <Text fontSize='large' fontWeight='bold'>
                     {request.name}
                 </Text>
@@ -38,9 +41,10 @@ const RequestView: FC<RVprops> = ( { request } ): JSX.Element => {
                 <Text fontSize='medium'>
                     {request.notes}
                 </Text>
-
+                </Box>
+            </Stack>
         </Box>
     )
 }
 
-export default RequestView;
+export default AdminRequestView;

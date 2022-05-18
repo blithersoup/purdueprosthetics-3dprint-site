@@ -3,22 +3,17 @@ import React from "react";
 import Header from "../../../components/header";
 import { withRouter, useRouter } from "next/router";
 import { useState, useEffect, useMemo } from "react";
-import { FormErrorMessage, FormControl, FormLabel, Input, Button, Select } from "@chakra-ui/react";
+import { FormErrorMessage, FormControl, FormLabel, Input, Button, Select, Stack, Spacer } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { Request } from "../../../dbconfig/models"
+import { Member } from "../../../dbconfig/models"
 
-const RequestViewDashboard: NextPage = withRouter((props) => {
-  const initialValues: Request = {
+const UserViewDashboard: NextPage = withRouter((props) => {
+  const initialValues: Member = {
     id: 0,
     name: "",
-    author_id: 1,
-    url: "",
-    dimensions: "",
-    notes: "",
-    material_type: "",
-    second_material: "",
-    stage: "",
-
+    email: "",
+    password: "",
+    org: ""
   }
   const [data, setData] = useState(initialValues);
 
@@ -31,7 +26,7 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
 
   useEffect(() => {
     async function setArray() {
-      await fetch("/api/requests/get/byId", {
+      await fetch("/api/members/get", {
         method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -48,8 +43,8 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
     reset(data);
   }, [data])
 
-  const deleteRequest = async () => {
-    const response = await fetch("/api/requests/delete", {
+  const deleteMember = async () => {
+    const response = await fetch("/api/members/delete", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -64,26 +59,22 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
     }
     const d = await response.json();
     console.log('POST: ', d);
-    router.push('/members/homepage');
+    router.push('/managers/dashboard');
   };
 
   
   const onSubmit = async (values: any) => {
-    const response = await fetch("/api/requests/update", {
+    const response = await fetch("/api/members/update", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
         id: data.id,
-        name: values.name, 
-        author_id: data.author_id,
-        url: values.url,
-        dimensions: values.dimensions,
-        notes: values.notes,
-        material_type: values.material_type,
-        second_material: values.second_material,
-        stage: data.stage
+        name: values.name,
+        email: values.email,
+        password: data.password,
+        org: values.org
       }),
     });
 
@@ -92,13 +83,13 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
     }
     const d = await response.json();
     console.log('POST: ', d);
-    router.push('/members/homepage');
+    router.push('/managers/dashboard');
   };
 
   return (
-    <>
+    <Stack direction='column'>
     <Header />
-    <Button onClick={() => router.push('/members/homepage')}>
+    <Button mt={4} colorScheme='gray' onClick={() => router.push('/managers/dashboard')}>
       Back to dashboard
     </ Button>
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -117,13 +108,13 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
         </FormErrorMessage>
       </FormControl>
       <FormControl isInvalid={!!errors.name}>
-        <FormLabel htmlFor='url'>URL of STL/gcode</FormLabel>
+        <FormLabel htmlFor='email'>Email</FormLabel>
         <Input
-          id='url'
-          placeholder='url'
-          {...register('url', {
+          id='email'
+          placeholder='email'
+          {...register('email', {
             required: 'This is required',
-            minLength: { value: 2, message: 'Please enter a url' },
+            minLength: { value: 2, message: 'Please enter an email' },
           })}
         />
         <FormErrorMessage>
@@ -131,59 +122,30 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
         </FormErrorMessage>
       </FormControl>
       <FormControl isInvalid={!!errors.name}>
-        <FormLabel htmlFor='notes'>Optional: notes</FormLabel>
+        <FormLabel htmlFor='org'>Organization</FormLabel>
         <Input
-          id='notes'
-          placeholder='Notes'
-          {...register('notes')}
+          id='org'
+          placeholder='Organization'
+          {...register('org', {
+            required: 'This is required',
+            minLength: { value: 2, message: 'Please enter an organization' },
+          })}
         />
         <FormErrorMessage>
           {errors.name && errors.name.message}
         </FormErrorMessage>
       </FormControl>
-      <FormControl isInvalid={!!errors.name}>
-        <FormLabel htmlFor='dimensions'>Dimensions</FormLabel>
-        <Input
-          id='dimensions'
-          placeholder='Dimensions'
-          {...register('dimensions')}
-        />
-        <FormErrorMessage>
-          {errors.name && errors.name.message}
-        </FormErrorMessage>
-      </FormControl>
-      <FormControl isInvalid={!!errors.name}>
-        <FormLabel htmlFor='material_type'>Material type</FormLabel>
-        <Input
-          id='material_type'
-          placeholder='Material type'
-          {...register('material_type')}
-        />
-        <FormErrorMessage>
-          {errors.name && errors.name.message}
-        </FormErrorMessage>
-      </FormControl>
-      <FormControl isInvalid={!!errors.name}>
-        <FormLabel htmlFor='second_material'>Optional: Second Material</FormLabel>
-        <Input
-          id='second_material'
-          placeholder='optional'
-          {...register('second_material')}
-        />
-        <FormErrorMessage>
-          {errors.name && errors.name.message}
-        </FormErrorMessage>
-      </FormControl>
-      <FormControl></FormControl>
       <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
         Update
       </Button>
     </form>
-    <Button mt={4} colorScheme='red' onClick={deleteRequest}>
+    <Stack direction='row'>
+    <Button mt={4} colorScheme='red' onClick={deleteMember}>
         Delete
     </Button>
-    </>
+    </Stack>
+    </Stack>
   );
 });
 
-export default RequestViewDashboard;
+export default UserViewDashboard;

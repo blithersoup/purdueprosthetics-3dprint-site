@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { get_requests_by_member } from '../../../../dbconfig/db_requests';
-import { useRouter } from "next/router";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const { id } = req.body as { id: string };

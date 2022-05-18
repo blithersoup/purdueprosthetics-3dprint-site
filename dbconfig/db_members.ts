@@ -9,7 +9,7 @@ import { QueryResult } from 'pg';
 // delete_member
 
 export const get_member = async (id: string): Promise<Member | null> => {
-  const res = await query<Member>('SELECT * FROM Managers WHERE id=$1', [
+  const res = await query<Member>('SELECT * FROM Members WHERE id=$1', [
     id,
   ]);
   return res.rowCount === 1 ? res.rows[0] : null;
