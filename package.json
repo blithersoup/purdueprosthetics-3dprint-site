@@ -11,6 +11,7 @@
   "dependencies": {
     "@chakra-ui/react": "^1.8.8",
     "@chakra-ui/toast": "^1.5.9",
+    "@clerk/nextjs": "^3.6.4",
     "@octokit/types": "^6.34.0",
     "@reach/alert": "^0.16.0",
     "dgram": "^1.0.1",
