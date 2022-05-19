@@ -6,7 +6,6 @@ const dbHost = process.env.DB_HOSTNAME;
 const dbPort = process.env.DB_PORT;
 const dbName = process.env.DB_NAME;
 
-
 const pool = new Pool({
   user: dbUser,
   password: dbPass,
@@ -21,4 +20,3 @@ export const query = <T>(
 ): Promise<QueryResult<T>> => {
   return pool.query<T>(text, params);
 };
- 

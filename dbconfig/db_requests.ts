@@ -41,7 +41,7 @@ export const create_request = async (
       [params.name, params.author_id, params.url, params.dimensions, params.notes, params.material_type, params.second_material, params.stage]
     );
   } catch (err: any) {
-    // username is already taken
+    //if username is already taken
     if (err.code === '23505') {
       return null;
     } else {

@@ -9,12 +9,12 @@ import {
   FormLabel,
   Input,
   Button,
-  Select,
   Stack,
   Spacer,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { Request } from "../../../dbconfig/models";
+import { useUser } from "@clerk/nextjs";
 
 const RequestViewDashboard: NextPage = withRouter((props) => {
   const initialValues: Request = {
@@ -65,6 +65,28 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
     reset(data);
   }, [data]);
 
+  const [isAdmin, setIsAdmin] = useState(false);
+  const { user } = useUser();
+
+  useEffect(() => {
+    async function setAd() {
+      await fetch("/api/members/isAdmin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: user?.emailAddresses[0].emailAddress,
+        }),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          setIsAdmin(json);
+        });
+    }
+    setAd();
+  }, []);
+
   const deleteRequest = async () => {
     const response = await fetch("/api/requests/delete", {
       method: "POST",
@@ -79,8 +101,6 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
-    const d = await response.json();
-    console.log("POST: ", d);
     router.push("/managers/dashboard");
   };
 
@@ -111,119 +131,137 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
-    const d = await response.json();
-    console.log("POST: ", d);
     router.push("/managers/dashboard");
   };
 
   return (
-    <Stack direction="column">
-      <Header />
-      <Button
-        mt={4}
-        colorScheme="gray"
-        onClick={() => router.push("/managers/dashboard")}
-      >
-        Back to dashboard
-      </Button>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isInvalid={!!errors.name}>
-          <FormLabel htmlFor="name">Name of print</FormLabel>
-          <Input
-            id="name"
-            placeholder="name"
-            {...register("name", {
-              required: "This is required",
-              minLength: { value: 2, message: "Please enter a name" },
-            })}
-          />
-          <FormErrorMessage>
-            {errors.name && errors.name.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.name}>
-          <FormLabel htmlFor="url">URL of STL/gcode</FormLabel>
-          <Input
-            id="url"
-            placeholder="url"
-            {...register("url", {
-              required: "This is required",
-              minLength: { value: 2, message: "Please enter a url" },
-            })}
-          />
-          <FormErrorMessage>
-            {errors.name && errors.name.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.name}>
-          <FormLabel htmlFor="notes">Optional: notes</FormLabel>
-          <Input id="notes" placeholder="Notes" {...register("notes")} />
-          <FormErrorMessage>
-            {errors.name && errors.name.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.name}>
-          <FormLabel htmlFor="dimensions">Dimensions</FormLabel>
-          <Input
-            id="dimensions"
-            placeholder="Dimensions"
-            {...register("dimensions")}
-          />
-          <FormErrorMessage>
-            {errors.name && errors.name.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.name}>
-          <FormLabel htmlFor="material_type">Material type</FormLabel>
-          <Input
-            id="material_type"
-            placeholder="Material type"
-            {...register("material_type")}
-          />
-          <FormErrorMessage>
-            {errors.name && errors.name.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.name}>
-          <FormLabel htmlFor="second_material">
-            Optional: Second Material
-          </FormLabel>
-          <Input
-            id="second_material"
-            placeholder="optional"
-            {...register("second_material")}
-          />
-          <FormErrorMessage>
-            {errors.name && errors.name.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.name}>
-          <FormLabel htmlFor="stage">Stage</FormLabel>
-          <Input id="stage" placeholder="stage" {...register("stage")} />
-          <FormErrorMessage>
-            {errors.name && errors.name.message}
-          </FormErrorMessage>
-        </FormControl>
-        <Button
-          mt={4}
-          colorScheme="teal"
-          isLoading={isSubmitting}
-          type="submit"
-        >
-          Update
-        </Button>
-      </form>
-      <Spacer />
-      <Stack direction="column" >
-        
-        <Button mt={4} size="md" maxW="xs" colorScheme="red" onClick={deleteRequest}>
-          Delete
-        </Button>
-        <Button mt={4} size="md" maxW="md" colorScheme="blue" onClick={viewUser}>
-          View user
-        </Button>
-      </Stack>
-    </Stack>
+    <>
+      {isAdmin ? (
+        <Stack direction="column">
+          <Header />
+          <Button
+            mt={4}
+            colorScheme="gray"
+            onClick={() => router.push("/managers/dashboard")}
+          >
+            Back to dashboard
+          </Button>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <FormControl isInvalid={!!errors.name}>
+              <FormLabel htmlFor="name">Name of print</FormLabel>
+              <Input
+                id="name"
+                placeholder="name"
+                {...register("name", {
+                  required: "This is required",
+                  minLength: { value: 2, message: "Please enter a name" },
+                })}
+              />
+              <FormErrorMessage>
+                {errors.name && errors.name.message}
+              </FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={!!errors.name}>
+              <FormLabel htmlFor="url">URL of STL/gcode</FormLabel>
+              <Input
+                id="url"
+                placeholder="url"
+                {...register("url", {
+                  required: "This is required",
+                  minLength: { value: 2, message: "Please enter a url" },
+                })}
+              />
+              <FormErrorMessage>
+                {errors.name && errors.name.message}
+              </FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={!!errors.name}>
+              <FormLabel htmlFor="notes">Optional: notes</FormLabel>
+              <Input id="notes" placeholder="Notes" {...register("notes")} />
+              <FormErrorMessage>
+                {errors.name && errors.name.message}
+              </FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={!!errors.name}>
+              <FormLabel htmlFor="dimensions">Dimensions</FormLabel>
+              <Input
+                id="dimensions"
+                placeholder="Dimensions"
+                {...register("dimensions")}
+              />
+              <FormErrorMessage>
+                {errors.name && errors.name.message}
+              </FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={!!errors.name}>
+              <FormLabel htmlFor="material_type">Material type</FormLabel>
+              <Input
+                id="material_type"
+                placeholder="Material type"
+                {...register("material_type")}
+              />
+              <FormErrorMessage>
+                {errors.name && errors.name.message}
+              </FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={!!errors.name}>
+              <FormLabel htmlFor="second_material">
+                Optional: Second Material
+              </FormLabel>
+              <Input
+                id="second_material"
+                placeholder="optional"
+                {...register("second_material")}
+              />
+              <FormErrorMessage>
+                {errors.name && errors.name.message}
+              </FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={!!errors.name}>
+              <FormLabel htmlFor="stage">Stage</FormLabel>
+              <Input id="stage" placeholder="stage" {...register("stage")} />
+              <FormErrorMessage>
+                {errors.name && errors.name.message}
+              </FormErrorMessage>
+            </FormControl>
+            <Button
+              mt={4}
+              colorScheme="teal"
+              isLoading={isSubmitting}
+              type="submit"
+            >
+              Update
+            </Button>
+          </form>
+          <Spacer />
+          <Stack direction="column">
+            <Button
+              mt={4}
+              size="md"
+              maxW="xs"
+              colorScheme="red"
+              onClick={deleteRequest}
+            >
+              Delete
+            </Button>
+            <Button
+              mt={4}
+              size="md"
+              maxW="md"
+              colorScheme="blue"
+              onClick={viewUser}
+            >
+              View user
+            </Button>
+          </Stack>
+        </Stack>
+      ) : (
+        <div>
+          You are not authorized to view this page. Please contact the
+          development team.
+        </div>
+      )}
+    </>
   );
 });
 

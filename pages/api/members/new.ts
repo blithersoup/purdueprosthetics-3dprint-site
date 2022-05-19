@@ -1,20 +1,19 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { create_member } from '../../../dbconfig/db_members';
-import { Member } from '../../../dbconfig/models'
+import type { NextApiRequest, NextApiResponse } from "next";
+import { create_member } from "../../../dbconfig/db_members";
+import { Member } from "../../../dbconfig/models";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(req.body)  
-  const newMan: Member = req.body as { 
-      id: 0, 
-      name: string, 
-      email: string, 
-      password: string, 
-      org: string 
-    };
-    await create_member(newMan).then((response) => {
+  const newMan: Member = req.body as {
+    id: 0;
+    name: string;
+    email: string;
+    password: string;
+    org: string;
+  };
+  await create_member(newMan).then((response) => {
     res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Cache-Control', 'max-age=180000');
-    res.end(JSON.stringify(response))
-    });
-  }
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Cache-Control", "max-age=180000");
+    res.end(JSON.stringify(response));
+  });
+};

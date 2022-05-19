@@ -1,4 +1,8 @@
-import { useForm } from "react-hook-form";
+import type { NextPage } from "next";
+import React from "react";
+import Header from "../../components/header";
+import { withRouter, useRouter } from "next/router";
+import { useState, useEffect, useMemo } from "react";
 import {
   FormErrorMessage,
   FormControl,
@@ -6,56 +10,91 @@ import {
   Input,
   Button,
 } from "@chakra-ui/react";
-import React, { FC, useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { useUser } from "@clerk/nextjs";
+import { useForm } from "react-hook-form";
+import { Request } from "../../dbconfig/models";
 
-const RequestForm: FC = () => {
+const RequestViewDashboard: NextPage = withRouter((props) => {
+  const initialValues: Request = {
+    id: 0,
+    name: "",
+    author_id: 1,
+    url: "",
+    dimensions: "",
+    notes: "",
+    material_type: "",
+    second_material: "",
+    stage: "",
+  };
+  const [data, setData] = useState(initialValues);
+
   const {
+    reset,
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm({
+    defaultValues: useMemo(() => data, [data]),
+    reValidateMode: "onChange",
+  });
 
   const router = useRouter();
-  const { user } = useUser();
-  const [id, setID] = useState(0);
 
   useEffect(() => {
-    async function getID() {
-      await fetch("/api/members/idFromEmail", {
+    async function setArray() {
+      await fetch("/api/requests/get/byId", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: user?.emailAddresses[0].emailAddress,
+          id: props.router?.query?.query,
         }),
       })
         .then((response) => response.json())
         .then((json) => {
-          setID(json["id"]);
+          setData(json);
         });
     }
-    getID();
+    setArray();
   }, []);
 
-  const onSubmit = async (values: any) => {
-    const response = await fetch("/api/requests/new", {
+  useEffect(() => {
+    reset(data);
+  }, [data]);
+
+  const deleteRequest = async () => {
+    const response = await fetch("/api/requests/delete", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: 1,
+        id: data.id,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    router.push("/members/homepage");
+  };
+
+  const onSubmit = async (values: any) => {
+    const response = await fetch("/api/requests/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: data.id,
         name: values.name,
-        author_id: id,
+        author_id: data.author_id,
         url: values.url,
         dimensions: values.dimensions,
         notes: values.notes,
         material_type: values.material_type,
         second_material: values.second_material,
-        stage: "Stage 1",
+        stage: data.stage,
       }),
     });
 
@@ -67,11 +106,12 @@ const RequestForm: FC = () => {
 
   return (
     <>
+      <Header />
       <Button onClick={() => router.push("/homepage")}>
         Back to dashboard
       </Button>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isInvalid={errors.name}>
+        <FormControl isInvalid={!!errors.name}>
           <FormLabel htmlFor="name">Name of print</FormLabel>
           <Input
             id="name"
@@ -85,7 +125,7 @@ const RequestForm: FC = () => {
             {errors.name && errors.name.message}
           </FormErrorMessage>
         </FormControl>
-        <FormControl isInvalid={errors.name}>
+        <FormControl isInvalid={!!errors.name}>
           <FormLabel htmlFor="url">URL of STL/gcode</FormLabel>
           <Input
             id="url"
@@ -99,14 +139,14 @@ const RequestForm: FC = () => {
             {errors.name && errors.name.message}
           </FormErrorMessage>
         </FormControl>
-        <FormControl isInvalid={errors.name}>
+        <FormControl isInvalid={!!errors.name}>
           <FormLabel htmlFor="notes">Optional: notes</FormLabel>
           <Input id="notes" placeholder="Notes" {...register("notes")} />
           <FormErrorMessage>
             {errors.name && errors.name.message}
           </FormErrorMessage>
         </FormControl>
-        <FormControl isInvalid={errors.name}>
+        <FormControl isInvalid={!!errors.name}>
           <FormLabel htmlFor="dimensions">Dimensions</FormLabel>
           <Input
             id="dimensions"
@@ -117,7 +157,7 @@ const RequestForm: FC = () => {
             {errors.name && errors.name.message}
           </FormErrorMessage>
         </FormControl>
-        <FormControl isInvalid={errors.name}>
+        <FormControl isInvalid={!!errors.name}>
           <FormLabel htmlFor="material_type">Material type</FormLabel>
           <Input
             id="material_type"
@@ -128,7 +168,7 @@ const RequestForm: FC = () => {
             {errors.name && errors.name.message}
           </FormErrorMessage>
         </FormControl>
-        <FormControl isInvalid={errors.name}>
+        <FormControl isInvalid={!!errors.name}>
           <FormLabel htmlFor="second_material">
             Optional: Second Material
           </FormLabel>
@@ -148,11 +188,14 @@ const RequestForm: FC = () => {
           isLoading={isSubmitting}
           type="submit"
         >
-          Submit
+          Update
         </Button>
       </form>
+      <Button mt={4} colorScheme="red" onClick={deleteRequest}>
+        Delete
+      </Button>
     </>
   );
-};
+});
 
-export default RequestForm;
+export default RequestViewDashboard;
