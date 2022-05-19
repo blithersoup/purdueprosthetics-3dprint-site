@@ -6,15 +6,13 @@ import { Stack, Box } from "@chakra-ui/react";
 import { Member } from "../../dbconfig/models";
 import AdminMemberView from "../../components/adminMemberView";
 import { useUser } from "@clerk/nextjs";
+import Head from "next/head";
 
 const AdminDashboard: NextPage = () => {
   const d: Array<Member> = [
     {
       id: 1,
-      name: "",
       email: "",
-      password: "",
-      org: "",
     },
   ];
 
@@ -61,6 +59,10 @@ const AdminDashboard: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <meta name="description" content="Admin page" />
+        <title>Admin</title>
+      </Head>
       {isAdmin ? (
         <Stack>
           <Header />

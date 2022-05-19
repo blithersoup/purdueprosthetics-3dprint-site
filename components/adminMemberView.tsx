@@ -26,11 +26,7 @@ const AdminMemberView: FC<RVprops> = ({ member }): JSX.Element => {
     >
       <Stack direction="row">
         <Box>
-          <Text fontSize="large" fontWeight="bold">
-            Name: {member.name}
-          </Text>
-          <Text>Email: {member.email}</Text>
-          <Text fontSize="medium">Organization {member.org}</Text>
+          <Text mt={4} mb={4} >Email: {member.email}</Text>
         </Box>
       </Stack>
     </Box>

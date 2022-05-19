@@ -7,6 +7,7 @@ import { Request } from "../dbconfig/models";
 import RequestView from "../components/requestView";
 import HiddenInput from "../components/hiddenInput";
 import { useUser } from "@clerk/nextjs";
+import Head from "next/head";
 
 const UserDashboard: NextPage = () => {
   const d: Array<Request> = [
@@ -30,6 +31,18 @@ const UserDashboard: NextPage = () => {
 
   useEffect(() => {
     async function getID() {
+      async function newUser() {
+        await fetch("/api/members/new", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: user?.emailAddresses[0].emailAddress,
+          }),
+        });
+      }
+
       await fetch("/api/members/idFromEmail", {
         method: "POST",
         headers: {
@@ -41,7 +54,11 @@ const UserDashboard: NextPage = () => {
       })
         .then((response) => response.json())
         .then((json) => {
-          setID(json["id"]);
+          if (json !== null) {
+            setID(json["id"]);
+          } else {
+            newUser();
+          }
         });
     }
     getID();
@@ -67,25 +84,31 @@ const UserDashboard: NextPage = () => {
   }, [id]);
 
   return (
-    <Stack direction="column">
-      <Header />
-      <Box
-        as="button"
-        borderRadius="large"
-        borderWidth="1px"
-        onClick={() => router.push("/form")}
-      >
-        New Request
-      </Box>
-      <div>All Requests</div>
-      <Stack spacing={3}>
-        {requests.map((request: Request) => (
-          <RequestView key={request.id} request={request} />
-        ))}
+    <>
+      <Head>
+        <meta name="description" content="Homepage" />
+        <title>Homepage</title>
+      </Head>
+      <Stack direction="column">
+        <Header />
+        <Box
+          as="button"
+          borderRadius="large"
+          borderWidth="1px"
+          onClick={() => router.push("/form")}
+        >
+          New Request
+        </Box>
+        <div>All Requests</div>
+        <Stack spacing={3}>
+          {requests.map((request: Request) => (
+            <RequestView key={request.id} request={request} />
+          ))}
+        </Stack>
+        <Box h={32} />
+        <HiddenInput />
       </Stack>
-      <Box h={32} />
-      <HiddenInput />
-    </Stack>
+    </>
   );
 };
 

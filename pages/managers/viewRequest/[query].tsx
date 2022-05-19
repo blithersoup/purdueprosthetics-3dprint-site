@@ -15,6 +15,7 @@ import {
 import { useForm } from "react-hook-form";
 import { Request } from "../../../dbconfig/models";
 import { useUser } from "@clerk/nextjs";
+import Head from "next/head";
 
 const RequestViewDashboard: NextPage = withRouter((props) => {
   const initialValues: Request = {
@@ -136,6 +137,10 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
 
   return (
     <>
+      <Head>
+        <meta name="description" content="Request View" />
+        <title>Request View</title>
+      </Head>
       {isAdmin ? (
         <Stack direction="column">
           <Header />

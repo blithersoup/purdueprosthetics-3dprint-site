@@ -14,14 +14,12 @@ import {
 import { useForm } from "react-hook-form";
 import { Member } from "../../../dbconfig/models";
 import { useUser } from "@clerk/nextjs";
+import Head from "next/head";
 
 const UserViewDashboard: NextPage = withRouter((props) => {
   const initialValues: Member = {
     id: 0,
-    name: "",
     email: "",
-    password: "",
-    org: "",
   };
   const [data, setData] = useState(initialValues);
 
@@ -109,7 +107,6 @@ const UserViewDashboard: NextPage = withRouter((props) => {
         id: data.id,
         name: values.name,
         email: values.email,
-        password: data.password,
         org: values.org,
       }),
     });
@@ -122,6 +119,10 @@ const UserViewDashboard: NextPage = withRouter((props) => {
 
   return (
     <>
+    <Head>
+        <meta name="description" content="User View" />
+        <title>User View</title>
+      </Head>
       {isAdmin ? (
         <Stack direction="column">
           <Header />
@@ -133,21 +134,8 @@ const UserViewDashboard: NextPage = withRouter((props) => {
             Back to dashboard
           </Button>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl isInvalid={!!errors.name}>
-              <FormLabel htmlFor="name">Name of print</FormLabel>
-              <Input
-                id="name"
-                placeholder="name"
-                {...register("name", {
-                  required: "This is required",
-                  minLength: { value: 2, message: "Please enter a name" },
-                })}
-              />
-              <FormErrorMessage>
-                {errors.name && errors.name.message}
-              </FormErrorMessage>
-            </FormControl>
-            <FormControl isInvalid={!!errors.name}>
+            
+            <FormControl isInvalid={!!errors.email}>
               <FormLabel htmlFor="email">Email</FormLabel>
               <Input
                 id="email"
@@ -158,26 +146,10 @@ const UserViewDashboard: NextPage = withRouter((props) => {
                 })}
               />
               <FormErrorMessage>
-                {errors.name && errors.name.message}
+                {errors.email && errors.email.message}
               </FormErrorMessage>
             </FormControl>
-            <FormControl isInvalid={!!errors.name}>
-              <FormLabel htmlFor="org">Organization</FormLabel>
-              <Input
-                id="org"
-                placeholder="Organization"
-                {...register("org", {
-                  required: "This is required",
-                  minLength: {
-                    value: 2,
-                    message: "Please enter an organization",
-                  },
-                })}
-              />
-              <FormErrorMessage>
-                {errors.name && errors.name.message}
-              </FormErrorMessage>
-            </FormControl>
+            
             <Button
               mt={4}
               colorScheme="teal"

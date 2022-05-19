@@ -6,6 +6,7 @@ import { Request } from "../../dbconfig/models";
 import AdminRequestView from "../../components/adminRequestView";
 import { useRouter } from "next/router";
 import { useUser } from "@clerk/nextjs";
+import Head from "next/head";
 
 const ManagerDashboard: NextPage = () => {
   const d: Array<Request> = [
@@ -65,6 +66,10 @@ const ManagerDashboard: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <meta name="description" content="Manager Dashboard" />
+        <title>Dashboard</title>
+      </Head>
       {isAdmin ? (
         <Stack>
           <Header />

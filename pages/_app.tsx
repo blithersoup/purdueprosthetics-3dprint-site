@@ -20,7 +20,7 @@ const colors = {
 
 const theme = extendTheme({ colors });
 
-const publicPages: Array<string> = [];
+const publicPages: Array<string> = ["/"];
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter();

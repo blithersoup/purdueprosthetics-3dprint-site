@@ -10,18 +10,7 @@ export interface Request {
   stage: string;
 }
 
-export interface Manager {
-  id: number;
-  name: string;
-  email: string;
-  password: string;
-  org: string;
-}
-
 export interface Member {
   id: number;
-  name: string;
   email: string;
-  password: string;
-  org: string;
 }

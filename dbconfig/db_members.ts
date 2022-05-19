@@ -24,8 +24,8 @@ export const create_member = async (params: Member): Promise<Member | null> => {
   let res: QueryResult<Member>;
   try {
     res = await query<Member>(
-      "INSERT INTO Members (name, email, password, org) VALUES ($1, $2, $3, $4) RETURNING *;",
-      [params.name, params.email, params.password, params.org]
+      "INSERT INTO Members (email) VALUES ($1) RETURNING *;",
+      [params.email]
     );
   } catch (err: any) {
     // username is already taken
@@ -41,8 +41,8 @@ export const create_member = async (params: Member): Promise<Member | null> => {
 
 export const update_member = async (params: Member): Promise<Member | null> => {
   const res = await query<Member>(
-    "UPDATE Members SET name = $2, password = $3, org = $4 WHERE id = $1 RETURNING *;",
-    [params.id, params.name, params.password, params.org]
+    "UPDATE Members SET email = $2 WHERE id = $1 RETURNING *;",
+    [params.id, params.email]
   );
   return res.rowCount === 1 ? res.rows[0] : null;
 };

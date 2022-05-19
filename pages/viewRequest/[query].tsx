@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { Request } from "../../dbconfig/models";
+import Head from "next/head";
 
 const RequestViewDashboard: NextPage = withRouter((props) => {
   const initialValues: Request = {
@@ -106,6 +107,10 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
 
   return (
     <>
+    <Head>
+        <meta name="description" content="Request View" />
+        <title>Request View</title>
+      </Head>
       <Header />
       <Button onClick={() => router.push("/homepage")}>
         Back to dashboard
