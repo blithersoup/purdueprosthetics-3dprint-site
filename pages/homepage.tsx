@@ -13,7 +13,7 @@ const UserDashboard: NextPage = () => {
   const d: Array<Request> = [
     {
       id: 1,
-      name: "No requests to show",
+      name: "No requests to show.",
       author_id: 1,
       url: "N/A",
       dimensions: "N/A",
