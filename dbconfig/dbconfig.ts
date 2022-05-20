@@ -1,10 +1,16 @@
 import { Pool, QueryResult } from "pg";
 
-const dbUser = process.env.DB_USERNAME;
-const dbPass = process.env.DB_PASSWORD;
-const dbHost = process.env.DB_HOSTNAME;
-const dbPort = process.env.DB_PORT;
-const dbName = process.env.DB_NAME;
+let regex: RegExp = /postgres:\/\/(.*)\:(.*)@(.*):(\d*)\/(.*)$/gm
+let dbUrl = process.env.DATABASE_URL;
+
+let matches: RegExpExecArray = regex.exec(dbUrl!)!;
+
+
+let dbUser: string = matches[1];
+let dbPass: string = matches[2];
+let dbHost: string = matches[3];
+let dbPort: string = matches[4];
+let dbName: string = matches[5];
 
 const pool = new Pool({
   user: dbUser,
