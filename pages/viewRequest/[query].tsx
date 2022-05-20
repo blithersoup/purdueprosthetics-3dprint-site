@@ -77,7 +77,7 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
-    router.push("/members/homepage");
+    router.push("/homepage");
   };
 
   const onSubmit = async (values: any) => {

@@ -29,7 +29,7 @@ const ManagerDashboard: NextPage = () => {
   useEffect(() => {
     async function setArray() {
       await fetch("/api/requests/getAll", {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -41,60 +41,31 @@ const ManagerDashboard: NextPage = () => {
     }
     setArray();
   });
-
-  const [isAdmin, setIsAdmin] = useState(false);
-  const { user } = useUser();
-
-  useEffect(() => {
-    async function setAd() {
-      await fetch("/api/members/isAdmin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: user?.emailAddresses[0].emailAddress,
-        }),
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          setIsAdmin(json);
-        });
-    }
-    setAd();
-  }, []);
-
   return (
     <>
       <Head>
         <meta name="description" content="Manager Dashboard" />
         <title>Dashboard</title>
       </Head>
-      {isAdmin ? (
-        <Stack>
-          <Header />
-          <Button
-            maxW="small"
-            as="button"
-            mt={4}
-            colorScheme="red"
-            onClick={() => router.push("/managers/admin")}
-          >
-            Admin Mode
-          </Button>
-          <div>All Requests</div>
-          <Stack spacing={3}>
-            {requests.map((request: Request) => (
-              <AdminRequestView key={request.id} request={request} />
-            ))}
-          </Stack>
+
+      <Stack>
+        <Header />
+        <Button
+          maxW="small"
+          as="button"
+          mt={4}
+          colorScheme="red"
+          onClick={() => router.push("/managers/admin")}
+        >
+          Admin Mode
+        </Button>
+        <div>All Requests</div>
+        <Stack spacing={3}>
+          {requests.map((request: Request) => (
+            <AdminRequestView key={request.id} request={request} />
+          ))}
         </Stack>
-      ) : (
-        <div>
-          You are not authorized to view this page. Please contact the
-          development team.
-        </div>
-      )}
+      </Stack>
     </>
   );
 };
