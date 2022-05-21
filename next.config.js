@@ -14,7 +14,7 @@ module.exports = {
     };
     return config;
   },
-  rewrites = async () => {
+  async rewrites() {
     return [
       {
         source: '/api/:path*',
