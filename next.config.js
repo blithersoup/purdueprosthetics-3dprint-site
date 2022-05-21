@@ -14,11 +14,11 @@ module.exports = {
     };
     return config;
   },
-  async rewrites() {
+  rewrites = async () => {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://purdueprosthetics.com/:path*',
+        destination: 'https://api.purdueprosthetics.com/:path*',
       },
     ]
   },
