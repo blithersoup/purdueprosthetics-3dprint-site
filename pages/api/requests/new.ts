@@ -17,6 +17,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   await create_request(newReq).then((response) => {
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
+    res.setHeader("set-cookie", [
+      "cookie1=value1; SameSite=Lax",
+      "cookie2=value2; SameSite=None; Secure",
+    ]);
     res.setHeader("Cache-Control", "max-age=180000");
     res.end(JSON.stringify(response));
   });
