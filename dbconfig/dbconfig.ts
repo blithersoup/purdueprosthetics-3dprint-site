@@ -1,6 +1,6 @@
 import { Pool, QueryResult } from "pg";
 
-let regex: RegExp = /postgres:\/\/(.*)\:(.*)@(.*):(\d*)\/(.*)$/gm
+let regex: RegExp = /postgres:\/\/(.*):(.*)@(.*):(\d*)\/(.*)$/gm
 let dbUrl = process.env.DATABASE_URL;
 
 let matches: RegExpExecArray = regex.exec(dbUrl!)!;
@@ -18,6 +18,7 @@ const pool = new Pool({
   host: dbHost,
   port: parseInt(dbPort!),
   database: dbName,
+  ssl: true
 });
 
 export const query = <T>(
