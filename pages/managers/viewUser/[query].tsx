@@ -119,7 +119,7 @@ const UserViewDashboard: NextPage = withRouter((props) => {
 
   return (
     <>
-    <Head>
+      <Head>
         <meta name="description" content="User View" />
         <title>User View</title>
       </Head>
@@ -134,7 +134,6 @@ const UserViewDashboard: NextPage = withRouter((props) => {
             Back to dashboard
           </Button>
           <form onSubmit={handleSubmit(onSubmit)}>
-            
             <FormControl isInvalid={!!errors.email}>
               <FormLabel htmlFor="email">Email</FormLabel>
               <Input
@@ -149,7 +148,7 @@ const UserViewDashboard: NextPage = withRouter((props) => {
                 {errors.email && errors.email.message}
               </FormErrorMessage>
             </FormControl>
-            
+
             <Button
               mt={4}
               colorScheme="teal"

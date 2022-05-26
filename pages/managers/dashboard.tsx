@@ -1,11 +1,10 @@
 import type { NextPage } from "next";
 import React, { useState, useEffect } from "react";
 import Header from "../../components/header";
-import { Stack, Button } from "@chakra-ui/react";
+import { Stack, Button, Heading } from "@chakra-ui/react";
 import { Request } from "../../dbconfig/models";
 import AdminRequestView from "../../components/adminRequestView";
 import { useRouter } from "next/router";
-import { useUser } from "@clerk/nextjs";
 import Head from "next/head";
 
 const ManagerDashboard: NextPage = () => {
@@ -51,7 +50,7 @@ const ManagerDashboard: NextPage = () => {
       <Stack>
         <Header />
         <Button
-          maxW="small"
+          maxW="15%"
           as="button"
           mt={4}
           colorScheme="red"
@@ -59,8 +58,8 @@ const ManagerDashboard: NextPage = () => {
         >
           Admin Mode
         </Button>
-        <div>All Requests</div>
-        <Stack spacing={3}>
+        <Heading as="h2" size="lg" pl="3" pt="1">All Requests</Heading>
+        <Stack spacing={3} pl="3" pt="1">
           {requests.map((request: Request) => (
             <AdminRequestView key={request.id} request={request} />
           ))}

@@ -14,31 +14,38 @@ const RequestView: FC<RVprops> = ({ request }): JSX.Element => {
   return (
     <Box
       as="button"
-      alignItems="left"
+      textAlign="left"
       borderRadius="md"
       color="wide"
-      maxW="large"
+      maxW={["95%", "40%"]}
       maxH="medium"
-      borderWidth="1px"
+      borderWidth="3px"
       onClick={() => {
         router.push(linkString);
       }}
     >
-      <Heading as="h3" size="md" pt="1">
+      <Heading as="h3" size="md" mt="2" ml="1" mb="1">
         {request.name}
       </Heading>
-      <Text>Stage: {request.stage}</Text>
-      <Text fontSize="small">Dimensions: {request.dimensions}</Text>
-
-      <Text fontSize="small">
+      <Text ml="3">Stage: {request.stage}</Text>
+      <Text ml="3" fontSize="small">
+        Dimensions: {request.dimensions}
+      </Text>
+      <Text ml="3" fontSize="small">
         URL to model:{" "}
         <Link href={request.url} color="green" isExternal>
           link
         </Link>
       </Text>
-      <Text fontSize="small">Materials: {request.material_type}, {request.second_material}</Text>
-      <Text fontSize="large">Notes:</Text>
-      <Text fontSize="medium">{request.notes}</Text>
+      <Text ml="3" mb="2" fontSize="small">
+        Materials: {request.material_type}, {request.second_material}
+      </Text>
+      <Text ml="1" fontSize="large">
+        Notes:
+      </Text>
+      <Text ml="2" mb="2" fontSize="medium">
+        {request.notes}
+      </Text>
     </Box>
   );
 };

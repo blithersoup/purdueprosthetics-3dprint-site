@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Request } from "../dbconfig/models";
-import { Box, Text, Stack, Link } from "@chakra-ui/react";
+import { Box, Text, Stack, Link, Heading } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 interface RVprops {
@@ -14,36 +14,32 @@ const AdminRequestView: FC<RVprops> = ({ request }): JSX.Element => {
   return (
     <Box
       as="button"
-      alignItems="left"
+      textAlign="left"
       borderRadius="md"
       color="wide"
-      maxW="large"
+      maxW={["95%", "40%"]}
       maxH="medium"
-      borderWidth="1px"
+      borderWidth="3px"
       onClick={() => {
         router.push(linkString);
       }}
     >
       <Stack direction="row">
         <Box>
-          <Text fontSize="large" fontWeight="bold">
-            {request.name}
-          </Text>
-          <Text>Stage: {request.stage}</Text>
-          <Text fontSize="small">Dimensions: {request.dimensions}</Text>
+        <Heading as="h3" size="md" mt="2" ml="1" mb="1">
+        {request.name}
+      </Heading>
+          <Text ml="3" fontSize="small">Dimensions: {request.dimensions}</Text>
 
-          <Text fontSize="small">
+          <Text ml="3" fontSize="small">
             URL to model:{" "}
             <Link href={request.url} color="green" isExternal>
               link
             </Link>
           </Text>
-          <Text fontSize="small">Material type: {request.material_type}</Text>
-          <Text fontSize="small">
-            Second Material: {request.second_material}
-          </Text>
-          <Text fontSize="large">Notes:</Text>
-          <Text fontSize="medium">{request.notes}</Text>
+          <Text ml="3" mb="2" fontSize="small">Materials: {request.material_type}, {request.second_material}</Text>
+          <Text ml="1" fontSize="large">Notes:</Text>
+          <Text ml="2" mb="2" fontSize="medium">{request.notes}</Text>
         </Box>
       </Stack>
     </Box>

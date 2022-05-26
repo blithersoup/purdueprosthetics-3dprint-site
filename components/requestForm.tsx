@@ -9,6 +9,11 @@ import {
 import React, { FC, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useUser } from "@clerk/nextjs";
+import {
+  allowedMaterials,
+  allowedSecondMaterials,
+  validUrl,
+} from "../components/formConrolInvalid";
 
 const RequestForm: FC = () => {
   const {
@@ -67,13 +72,17 @@ const RequestForm: FC = () => {
 
   return (
     <>
-      <Button onClick={() => router.push("/homepage")}>
+      <Button ml="3" mb="3" onClick={() => router.push("/homepage")}>
         Back to dashboard
       </Button>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.name}>
-          <FormLabel htmlFor="name">Name of print</FormLabel>
+          <FormLabel ml="10" mt="3" htmlFor="name">
+            Name of print
+          </FormLabel>
           <Input
+            ml="5"
+            width={["90%", "40%"]}
             id="name"
             placeholder="name"
             {...register("name", {
@@ -86,13 +95,18 @@ const RequestForm: FC = () => {
           </FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={errors.name}>
-          <FormLabel htmlFor="url">URL of STL/gcode</FormLabel>
+          <FormLabel ml="10" mt="3" htmlFor="url">
+            URL of STL/gcode
+          </FormLabel>
           <Input
+            ml="5"
+            width={["90%", "40%"]}
             id="url"
             placeholder="url"
             {...register("url", {
               required: "This is required",
               minLength: { value: 2, message: "Please enter a url" },
+              pattern: validUrl,
             })}
           />
           <FormErrorMessage>
@@ -100,15 +114,27 @@ const RequestForm: FC = () => {
           </FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={errors.name}>
-          <FormLabel htmlFor="notes">Optional: notes</FormLabel>
-          <Input id="notes" placeholder="Notes" {...register("notes")} />
+          <FormLabel ml="10" mt="3" htmlFor="notes">
+            Optional: notes
+          </FormLabel>
+          <Input
+            ml="5"
+            width={["90%", "40%"]}
+            id="notes"
+            placeholder="Notes"
+            {...register("notes")}
+          />
           <FormErrorMessage>
             {errors.name && errors.name.message}
           </FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={errors.name}>
-          <FormLabel htmlFor="dimensions">Dimensions</FormLabel>
+          <FormLabel ml="10" mt="3" htmlFor="dimensions">
+            Dimensions
+          </FormLabel>
           <Input
+            ml="5"
+            width={["90%", "40%"]}
             id="dimensions"
             placeholder="Dimensions"
             {...register("dimensions")}
@@ -118,32 +144,46 @@ const RequestForm: FC = () => {
           </FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={errors.name}>
-          <FormLabel htmlFor="material_type">Material type</FormLabel>
+          <FormLabel ml="10" mt="3" htmlFor="material_type">
+            Material type
+          </FormLabel>
           <Input
+            ml="5"
+            width={["90%", "40%"]}
             id="material_type"
             placeholder="Material type"
-            {...register("material_type")}
+            {...register("material_type", {
+              required: "This is required",
+              minLength: { value: 2, message: "Please enter a url" },
+              pattern: allowedMaterials,
+            })}
           />
           <FormErrorMessage>
             {errors.name && errors.name.message}
           </FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={errors.name}>
-          <FormLabel htmlFor="second_material">
+          <FormLabel ml="10" mt="3" htmlFor="second_material">
             Optional: Second Material
           </FormLabel>
           <Input
+            ml="5"
+            width={["90%", "40%"]}
             id="second_material"
             placeholder="optional"
-            {...register("second_material")}
+            {...register("second_material", {
+              required: "This is required",
+              minLength: { value: 2, message: "Please enter a url" },
+              pattern: allowedSecondMaterials,
+            })}
           />
           <FormErrorMessage>
             {errors.name && errors.name.message}
           </FormErrorMessage>
         </FormControl>
-        <FormControl></FormControl>
         <Button
           mt={4}
+          ml="3"
           colorScheme="teal"
           isLoading={isSubmitting}
           type="submit"

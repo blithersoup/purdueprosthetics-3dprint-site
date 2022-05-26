@@ -100,8 +100,10 @@ const UserDashboard: NextPage = () => {
         >
           New Request
         </Button>
-        <Heading as="h2" size="lg" pl="3" pt="1">All Requests</Heading>
-        <Stack spacing={3}>
+        <Heading as="h2" size="lg" pl="3" pt="1">
+          All Requests
+        </Heading>
+        <Stack spacing={3} pl="3">
           {requests.map((request: Request) => (
             <RequestView key={request.id} request={request} />
           ))}
