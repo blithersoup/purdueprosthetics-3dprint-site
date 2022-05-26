@@ -30,7 +30,7 @@ const HiddenInput: FC = () => {
     }
   };
   return (
-    <Stack direction="row" align="bottom">
+    <Stack direction="row" align="bottom" pl="3">
       <Button {...buttonProps} size="md">
         Sign in as admin
       </Button>

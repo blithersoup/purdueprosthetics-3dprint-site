@@ -21,7 +21,6 @@ const Home: NextPage = () => {
         <meta name="description" content="Purdue 3D Printed Prosthetics Club Website" />
         <title>Purdue 3D Printed Prosthetics Homepage</title>
       </Head>
-      <Header />
       <div>hello world</div>
       <Button colorScheme="cyan" mt={4} onClick={() => { router.push("/homepage") }}>
         This isnt finished! go to homepage

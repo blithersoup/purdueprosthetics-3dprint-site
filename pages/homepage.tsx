@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Header from "../components/header";
-import { Stack, Box } from "@chakra-ui/react";
+import { Stack, Box, Button, Heading } from "@chakra-ui/react";
 import { Request } from "../dbconfig/models";
 import RequestView from "../components/requestView";
 import HiddenInput from "../components/hiddenInput";
@@ -91,15 +91,16 @@ const UserDashboard: NextPage = () => {
       </Head>
       <Stack direction="column">
         <Header />
-        <Box
-          as="button"
-          borderRadius="large"
-          borderWidth="1px"
+        <Button
           onClick={() => router.push("/form")}
+          colorScheme="green"
+          variant="outline"
+          size="md"
+          maxW={["35%", "8%"]}
         >
           New Request
-        </Box>
-        <div>All Requests</div>
+        </Button>
+        <Heading as="h2" size="lg" pl="3" pt="1">All Requests</Heading>
         <Stack spacing={3}>
           {requests.map((request: Request) => (
             <RequestView key={request.id} request={request} />

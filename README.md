@@ -1,2 +1,2 @@
-## Purdue 3D printed Prosthetics site
+# Purdue 3D Printed Prosthetics Site
 

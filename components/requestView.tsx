@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Request } from "../dbconfig/models";
-import { Box, Text, Link } from "@chakra-ui/react";
+import { Box, Text, Link, Heading } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 interface RVprops {
@@ -24,9 +24,9 @@ const RequestView: FC<RVprops> = ({ request }): JSX.Element => {
         router.push(linkString);
       }}
     >
-      <Text fontSize="large" fontWeight="bold">
+      <Heading as="h3" size="md" pt="1">
         {request.name}
-      </Text>
+      </Heading>
       <Text>Stage: {request.stage}</Text>
       <Text fontSize="small">Dimensions: {request.dimensions}</Text>
 
@@ -36,8 +36,7 @@ const RequestView: FC<RVprops> = ({ request }): JSX.Element => {
           link
         </Link>
       </Text>
-      <Text fontSize="small">Material type: {request.material_type}</Text>
-      <Text fontSize="small">Second Material: {request.second_material}</Text>
+      <Text fontSize="small">Materials: {request.material_type}, {request.second_material}</Text>
       <Text fontSize="large">Notes:</Text>
       <Text fontSize="medium">{request.notes}</Text>
     </Box>
