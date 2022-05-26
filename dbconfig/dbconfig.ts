@@ -18,7 +18,7 @@ const pool = new Pool({
   host: dbHost,
   port: parseInt(dbPort!),
   database: dbName,
-  ssl: true
+  ssl: { rejectUnauthorized: false}
 });
 
 export const query = <T>(
