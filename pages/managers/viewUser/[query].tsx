@@ -123,7 +123,7 @@ const UserViewDashboard: NextPage = withRouter((props) => {
         <meta name="description" content="User View" />
         <title>User View</title>
       </Head>
-      {isAdmin ? (
+      {isAdmin === true ? (
         <Stack direction="column">
           <Header />
           <Button

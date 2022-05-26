@@ -141,7 +141,7 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
         <meta name="description" content="Request View" />
         <title>Request View</title>
       </Head>
-      {isAdmin ? (
+      {isAdmin === true ? (
         <Stack direction="column">
           <Header />
           <Button

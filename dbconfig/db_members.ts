@@ -62,11 +62,11 @@ export const delete_member = async (id: string): Promise<Member | null> => {
   return res.rowCount === 1 ? res.rows[0] : null;
 };
 
-export const is_admin = async (id: string): Promise<string> => {
+export const is_admin = async (id: string): Promise<boolean> => {
   const res = await query<string>("SELECT * FROM AdminMembers WHERE email=$1", [
     id,
   ]);
-  return res.rowCount === 1 ? "True" : "False";
+  return res.rowCount === 1 ? true : false;
 };
 
 export const get_id_from_email = async (

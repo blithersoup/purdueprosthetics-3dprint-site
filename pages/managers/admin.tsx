@@ -63,7 +63,7 @@ const AdminDashboard: NextPage = () => {
         <meta name="description" content="Admin page" />
         <title>Admin</title>
       </Head>
-      {isAdmin ? (
+      {isAdmin === true ? (
         <Stack>
           <Header />
           <Box
