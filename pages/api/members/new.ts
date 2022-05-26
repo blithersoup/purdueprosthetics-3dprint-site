@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { create_member } from "../../../dbconfig/db_members";
 import { Member } from "../../../dbconfig/models";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const newMember = async (req: NextApiRequest, res: NextApiResponse) => {
   const newMan: Member = req.body as {
     id: 0;
     email: string;
@@ -18,3 +18,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.end(JSON.stringify(response));
   });
 };
+
+export default newMember;

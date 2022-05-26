@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { get_request } from "../../../../dbconfig/db_requests";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const getById = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.body as { id: string };
 
   await get_request(id).then((response) => {
@@ -15,3 +15,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.end(JSON.stringify(response));
   });
 };
+
+export default getById;

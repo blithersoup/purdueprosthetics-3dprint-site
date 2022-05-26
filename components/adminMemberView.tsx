@@ -26,7 +26,9 @@ const AdminMemberView: FC<RVprops> = ({ member }): JSX.Element => {
     >
       <Stack direction="row">
         <Box>
-          <Text mt={4} mb={4} >Email: {member.email}</Text>
+          <Text mt={4} mb={4}>
+            Email: {member.email}
+          </Text>
         </Box>
       </Stack>
     </Box>

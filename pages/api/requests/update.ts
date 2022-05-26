@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { update_request } from "../../../dbconfig/db_requests";
 import type { Request } from "../../../dbconfig/models";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const updateRequest = async (req: NextApiRequest, res: NextApiResponse) => {
   const newReq: Request = req.body as {
     id: number;
     name: string;
@@ -26,3 +26,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.end(JSON.stringify(response));
   });
 };
+export default updateRequest;

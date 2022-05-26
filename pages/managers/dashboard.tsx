@@ -26,6 +26,7 @@ const ManagerDashboard: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
+    let isA = true;
     async function setArray() {
       await fetch("/api/requests/getAll", {
         method: "POST",
@@ -35,11 +36,17 @@ const ManagerDashboard: NextPage = () => {
       })
         .then((response) => response.json())
         .then((json) => {
-          setRequests(json);
+          if (isA) {
+            setRequests(json);
+          }
         });
     }
     setArray();
+    return () => {
+      isA = false;
+    };
   });
+
   return (
     <>
       <Head>
@@ -58,7 +65,9 @@ const ManagerDashboard: NextPage = () => {
         >
           Admin Mode
         </Button>
-        <Heading as="h2" size="lg" pl="3" pt="1">All Requests</Heading>
+        <Heading as="h2" size="lg" pl="3" pt="1">
+          All Requests
+        </Heading>
         <Stack spacing={3} pl="3" pt="1">
           {requests.map((request: Request) => (
             <AdminRequestView key={request.id} request={request} />

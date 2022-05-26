@@ -20,6 +20,7 @@ const AdminDashboard: NextPage = () => {
   const [requests, setRequests] = useState(d);
 
   useEffect(() => {
+    let isA = true;
     async function setArray() {
       await fetch("/api/members/getAll", {
         method: "POST",
@@ -29,16 +30,22 @@ const AdminDashboard: NextPage = () => {
       })
         .then((response) => response.json())
         .then((json) => {
-          setRequests(json);
+          if (isA) {
+            setRequests(json);
+          }
         });
     }
     setArray();
+    return () => {
+      isA = false;
+    };
   });
 
   const [isAdmin, setIsAdmin] = useState(false);
   const { user } = useUser();
 
   useEffect(() => {
+    let isMounted = true;
     async function setAd() {
       await fetch("/api/members/isAdmin", {
         method: "POST",
@@ -46,16 +53,21 @@ const AdminDashboard: NextPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: user?.emailAddresses[0].emailAddress,
+          email: user?.emailAddresses[0].emailAddress,
         }),
       })
         .then((response) => response.json())
         .then((json) => {
-          setIsAdmin(json);
+          if (isMounted) {
+            setIsAdmin(json);
+          }
         });
     }
     setAd();
-  }, []);
+    return () => {
+      isMounted = false;
+    };
+  }, [user?.emailAddresses]);
 
   return (
     <>

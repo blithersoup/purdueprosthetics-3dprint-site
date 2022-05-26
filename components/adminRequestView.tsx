@@ -26,10 +26,12 @@ const AdminRequestView: FC<RVprops> = ({ request }): JSX.Element => {
     >
       <Stack direction="row">
         <Box>
-        <Heading as="h3" size="md" mt="2" ml="1" mb="1">
-        {request.name}
-      </Heading>
-          <Text ml="3" fontSize="small">Dimensions: {request.dimensions}</Text>
+          <Heading as="h3" size="md" mt="2" ml="1" mb="1">
+            {request.name}
+          </Heading>
+          <Text ml="3" fontSize="small">
+            Dimensions: {request.dimensions}
+          </Text>
 
           <Text ml="3" fontSize="small">
             URL to model:{" "}
@@ -37,9 +39,15 @@ const AdminRequestView: FC<RVprops> = ({ request }): JSX.Element => {
               link
             </Link>
           </Text>
-          <Text ml="3" mb="2" fontSize="small">Materials: {request.material_type}, {request.second_material}</Text>
-          <Text ml="1" fontSize="large">Notes:</Text>
-          <Text ml="2" mb="2" fontSize="medium">{request.notes}</Text>
+          <Text ml="3" mb="2" fontSize="small">
+            Materials: {request.material_type}, {request.second_material}
+          </Text>
+          <Text ml="1" fontSize="large">
+            Notes:
+          </Text>
+          <Text ml="2" mb="2" fontSize="medium">
+            {request.notes}
+          </Text>
         </Box>
       </Stack>
     </Box>

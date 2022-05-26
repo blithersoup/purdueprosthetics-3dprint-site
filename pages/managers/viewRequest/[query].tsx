@@ -65,16 +65,17 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
         });
     }
     setArray();
-  }, []);
+  }, [props.router?.query?.query]);
 
   useEffect(() => {
     reset(data);
-  }, [data]);
+  }, [data, reset]);
 
   const [isAdmin, setIsAdmin] = useState(false);
   const { user } = useUser();
 
   useEffect(() => {
+    let isA = true;
     async function setAd() {
       await fetch("/api/members/isAdmin", {
         method: "POST",
@@ -82,16 +83,21 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: user?.emailAddresses[0].emailAddress,
+          email: user?.emailAddresses[0].emailAddress,
         }),
       })
         .then((response) => response.json())
         .then((json) => {
-          setIsAdmin(json);
+          if (isA) {
+            setIsAdmin(json);
+          }
         });
+      return () => {
+        isA = false;
+      };
     }
     setAd();
-  }, []);
+  }, [user?.emailAddresses]);
 
   const deleteRequest = async () => {
     const response = await fetch("/api/requests/delete", {

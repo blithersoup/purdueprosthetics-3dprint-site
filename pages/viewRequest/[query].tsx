@@ -62,11 +62,11 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
         });
     }
     setArray();
-  }, []);
+  }, [props.router?.query?.query]);
 
   useEffect(() => {
     reset(data);
-  }, [data]);
+  }, [data, reset]);
 
   const deleteRequest = async () => {
     const response = await fetch("/api/requests/delete", {

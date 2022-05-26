@@ -63,9 +63,10 @@ export const delete_member = async (id: string): Promise<Member | null> => {
 };
 
 export const is_admin = async (id: string): Promise<boolean> => {
-  const res = await query<string>("SELECT * FROM AdminMembers WHERE email=$1;", [
-    id,
-  ]);
+  const res = await query<string>(
+    "SELECT * FROM AdminMembers WHERE email=$1;",
+    [id]
+  );
   return res.rowCount === 1 ? true : false;
 };
 

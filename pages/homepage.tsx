@@ -62,7 +62,7 @@ const UserDashboard: NextPage = () => {
         });
     }
     getID();
-  }, []);
+  }, [user?.emailAddresses]);
 
   useEffect(() => {
     async function setArray() {

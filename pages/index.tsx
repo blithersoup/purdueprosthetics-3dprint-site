@@ -13,16 +13,25 @@ const Home: NextPage = () => {
   //Header is a good starter for that if you have an idea for another, just copy that
 
   //This is for the purdue prosthetics site, do with it whatever you want
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <div>
       <Head>
-        <meta name="description" content="Purdue 3D Printed Prosthetics Club Website" />
+        <meta
+          name="description"
+          content="Purdue 3D Printed Prosthetics Club Website"
+        />
         <title>Purdue 3D Printed Prosthetics Homepage</title>
       </Head>
       <div>hello world</div>
-      <Button colorScheme="cyan" mt={4} onClick={() => { router.push("/homepage") }}>
+      <Button
+        colorScheme="cyan"
+        mt={4}
+        onClick={() => {
+          router.push("/homepage");
+        }}
+      >
         This isnt finished! go to homepage
       </Button>
     </div>

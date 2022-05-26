@@ -43,7 +43,7 @@ const RequestForm: FC = () => {
         });
     }
     getID();
-  }, []);
+  }, [user?.emailAddresses]);
 
   const onSubmit = async (values: any) => {
     const response = await fetch("/api/requests/new", {

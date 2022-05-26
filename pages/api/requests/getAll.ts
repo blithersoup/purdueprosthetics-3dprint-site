@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { get_all_requests } from "../../../dbconfig/db_requests";
+import getAll from "../members/getAll";
 
 export const config = {
   api: {
@@ -7,7 +8,7 @@ export const config = {
   },
 };
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const getAllRequests = async (req: NextApiRequest, res: NextApiResponse) => {
   get_all_requests().then((response) => {
     res.setHeader("Content-Type", "application/json");
     res.setHeader("set-cookie", [
@@ -18,3 +19,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(200).end(JSON.stringify(response));
   });
 };
+
+export default getAllRequests;

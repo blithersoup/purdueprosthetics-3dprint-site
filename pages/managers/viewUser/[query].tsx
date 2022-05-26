@@ -52,11 +52,11 @@ const UserViewDashboard: NextPage = withRouter((props) => {
         });
     }
     setArray();
-  }, []);
+  }, [props.router?.query?.query]);
 
   useEffect(() => {
     reset(data);
-  }, [data]);
+  }, [data, reset]);
 
   const deleteMember = async () => {
     const response = await fetch("/api/members/delete", {
@@ -86,7 +86,7 @@ const UserViewDashboard: NextPage = withRouter((props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: user?.emailAddresses[0].emailAddress,
+          email: user?.emailAddresses[0].emailAddress,
         }),
       })
         .then((response) => response.json())
@@ -95,7 +95,7 @@ const UserViewDashboard: NextPage = withRouter((props) => {
         });
     }
     setAd();
-  }, []);
+  }, [user?.emailAddresses]);
 
   const onSubmit = async (values: any) => {
     const response = await fetch("/api/members/update", {

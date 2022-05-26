@@ -7,7 +7,7 @@ export const config = {
   },
 };
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const getAllMembers = async (req: NextApiRequest, res: NextApiResponse) => {
   get_all_members().then((response) => {
     res.setHeader("Content-Type", "application/json");
     res.setHeader("set-cookie", [
@@ -18,3 +18,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(200).end(JSON.stringify(response));
   });
 };
+
+export default getAllMembers;

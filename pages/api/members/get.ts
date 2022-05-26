@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { get_member } from "../../../dbconfig/db_members";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const getMember = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.body as { id: string };
   await get_member(id).then((response) => {
     res.statusCode = 200;
@@ -14,3 +14,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.end(JSON.stringify(response));
   });
 };
+export default getMember;
