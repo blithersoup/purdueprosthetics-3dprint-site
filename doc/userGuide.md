@@ -62,14 +62,13 @@ The second material also must be one of the following:
 
 Similar to above, all entries are case sensitive and exact.  In case you were curious, the regular expressions used for form control can be found [here.](../components/formConrolInvalid.tsx)
 
-### The form will not submit if you do not have proper values for all fields.  Make sure that your materials and link fit the form control criteria; if you believe they should, contact the team.
+### The form will not submit if you do not have proper values for all fields.  Make sure that your materials and link fit the form control criteria; if you believe they should, contact the team
 
 ## Stages
 
 1. Stage 1-
 
 Info on stages- TODO
-
 
 ## General Guidelines
 

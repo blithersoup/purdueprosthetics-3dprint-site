@@ -11,13 +11,8 @@
   "dependencies": {
     "@chakra-ui/react": "^1.8.8",
     "@clerk/nextjs": "^3.6.4",
-    "@reach/alert": "^0.16.0",
     "dns": "file:./dbconfig/mock/dns",
-    "dompurify": "^2.3.8",
-    "g": "^2.0.1",
-    "net": "^1.0.2",
     "next": "12.1.0",
-    "nextjs-cors": "^2.1.1",
     "node": "^16.14.2",
     "npm": "^8.5.0",
     "pg": "^8.7.3",
