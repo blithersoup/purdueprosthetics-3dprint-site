@@ -11,6 +11,7 @@
   "dependencies": {
     "@chakra-ui/react": "^1.8.8",
     "@clerk/nextjs": "^3.6.4",
+    "@sendgrid/mail": "^7.7.0",
     "dns": "file:./dbconfig/mock/dns",
     "next": "12.1.0",
     "node": "^16.14.2",

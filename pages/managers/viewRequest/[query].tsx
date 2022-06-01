@@ -70,8 +70,28 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
   useEffect(() => {
     reset(data);
   }, [data, reset]);
+  const [userEmail, setUserEmail] = useState("");
+  useEffect(() => {
+    async function setAd() {
+      await fetch("/api/members/get", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: data.author_id,
+        }),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          setUserEmail(json);
+        });
+    }
+    setAd();
+  }, [data]);
 
   const [isAdmin, setIsAdmin] = useState(false);
+
   const { user } = useUser();
 
   useEffect(() => {
@@ -143,9 +163,28 @@ const RequestViewDashboard: NextPage = withRouter((props) => {
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
+    const h = await fetch("/api/email/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: values.name,
+        url: values.url,
+        dimensions: values.dimensions,
+        notes: values.notes,
+        material_type: values.material_type,
+        second_material: values.second_material,
+        stage: values.stage,
+        email: userEmail,
+      }),
+    });
+    if (!h.ok) {
+      throw new Error(`Error: ${h.status}`);
+    }
+
     router.push("/managers/dashboard");
   };
-
   return (
     <>
       <Head>

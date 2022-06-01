@@ -29,6 +29,7 @@ const AdminRequestView: FC<RVprops> = ({ request }): JSX.Element => {
           <Heading as="h3" size="md" mt="2" ml="1" mb="1">
             {request.name}
           </Heading>
+          <Text ml="3">Stage: {request.stage}</Text>
           <Text ml="3" fontSize="small">
             Dimensions: {request.dimensions}
           </Text>
