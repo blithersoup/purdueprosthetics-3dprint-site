@@ -9,25 +9,29 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.1",
     "@chakra-ui/react": "^1.8.8",
+    "@chakra-ui/system": "^2.1.1",
     "@clerk/nextjs": "^3.6.4",
     "@sendgrid/mail": "^7.7.0",
     "dns": "file:./dbconfig/mock/dns",
-    "next": "12.1.0",
+    "next": "^12.1.0",
     "node": "^16.14.2",
     "npm": "^8.5.0",
     "pg": "^8.7.3",
     "pg-native": "file:./dbconfig/mock/pg-native",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-hook-form": "^7.29.0"
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-hook-form": "^7.29.0",
+    "react-icons": "^4.4.0"
   },
   "devDependencies": {
     "@types/node": "^17.0.24",
     "@types/pg": "^8.6.5",
-    "@types/react": "17.0.40",
+    "@types/react": "^18.0.1",
     "eslint": "8.10.0",
-    "eslint-config-next": "12.1.0",
-    "typescript": "4.6.2"
+    "eslint-config-next": "^12.1.0",
+    "typescript": "^4.6.2"
   }
-}
+ }
+ 
