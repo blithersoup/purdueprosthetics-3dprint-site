@@ -15,7 +15,8 @@
     "@clerk/nextjs": "^3.6.4",
     "@sendgrid/mail": "^7.7.0",
     "dns": "file:./dbconfig/mock/dns",
-    "next": "^12.1.0",
+    "got": ">=11.8.5",
+    "next": "^12.2.2",
     "node": "^16.14.2",
     "npm": "^8.5.0",
     "pg": "^8.7.3",
@@ -33,5 +34,4 @@
     "eslint-config-next": "^12.1.0",
     "typescript": "^4.6.2"
   }
- }
- 
+}
